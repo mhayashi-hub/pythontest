@@ -1,6 +1,8 @@
 print(100 *5 + 40 *10)
 var = 1 + 1
 print(var)
+print(1+4)
+print("python test : ",var)
 import calendar
 calendar.prmonth(2022,1)
 print(1,2,"A","漢字")
