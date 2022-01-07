@@ -1,3 +1,5 @@
+from itertools import count
+
 print(100 *5 + 40 *10)
 var = 1 + 1
 print(var)
@@ -7,8 +9,10 @@ import calendar
 calendar.prmonth(2022,1)
 print(1,2,"A","漢字")
 def countup():
-    count
-    return count
+    c1=count()
+    return c1
+print(countup())
+
 
 flag1 = "false"
 if flag1 == "true":
