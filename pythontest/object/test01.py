@@ -1,5 +1,8 @@
 # pythonのコメントは#以降。
 # 字下げ、スペースを厳密にチェックしてプログラムの構造判定に使うので書式チェッカのエラーに注意。
+# pythonの中で書いてる人間が勝手に名前を付けられるものは全部オブジェクトとして定義されている。
+# 予約語や処理キーワードは変更できないのでオブジェクトではない、と判断してよい。
+print('int and operator test:')
 print(100 *5 + 40 *10)
 var = 1 + 1
 print(var)
@@ -7,6 +10,7 @@ print(1+4)
 print("python test : ",var)
 # listは不定長のデータをまとめて格納する形式、要素のデータを書き換えることが可能。
 # 大量のデータを扱う場合には負荷やコストが高いので、データが固定の場合はtupleで生成して扱うのが良い。
+print('list test:')
 checkl = [1,2,4,5]
 print(checkl)
 print(checkl[1])
@@ -22,12 +26,20 @@ print(checkl)
 del checkl[0]
 print(checkl)
 print(checkl[0])
-# for分はリストオブジェクトから要素を取り出す処理を要素数分だけループできる。
+# for文はリストオブジェクトから要素を取り出す処理を要素数分だけループできる。
+print('for extraction from list test:')
 for i in checkl:
     print(i)
 # すでにリストから要素を取り出しているので、リスト要素指定はいらない。
 # 変数に要素そのものが入るので、ここでcheckl[i]などとすると取り出した要素をindexとして使って再度リスト内の要素を探すことになる。
-
+# for文にrange()メソッドを組み合わせると、任意の繰り返し回数の処理ができる。
+countj = 0
+print('loop test:', countj)
+for j in range(5):
+    countj += 1
+    print(countj)
+print('loop test: end')
+print('collection test:')
 testfig = 'AABBDC'
 print(testfig[2],testfig[4])
 
@@ -46,6 +58,7 @@ print(testfig[2],testfig[4])
 # アンパック時は通常要素すべてを格納する変数が必要だが、_(アンダースコア)に不要な要素を突っ込んでやることが可能。
 # python3から*変数名で、取り出したい要素より後の要素をリストにまとめて*を追加した変数に格納することが可能になる。
 # また、アンパック時の変数の並びを左辺に、右辺に変数を並び替えて代入することで、変数と値の入れ替え、スワッピング代入が可能。
+print('dictionary test:')
 dicl = {1:'apple', 2:'orange', 3:'banana'}
 print(dicl)
 print(dicl[1])
@@ -54,12 +67,14 @@ print(a)
 print(_)
 # スワッピング代入　要素の並びを変更するのではなくaの値をbに、bの値をaに入れ替える。
 # 他の言語のように変数の内容を一度退避して再度変数に代入することなく一括で変数の内容を入れ替えられる。
+print('swapping variable insertion test:')
 a,b = b,a
 print(b,a)
 print(a,b)
 # zip()メソッドではコレクションを複数まとめて取り扱える。コレクションの種類は混在してよい。
 # ただしdictionaryではkeyとvalueのどちらを使うかを明確に意識することに注意。
 # zipで複数のコレクションをまとめられるが、全部の要素を個別の変数にfor文などで取り出すことができる。
+print('zip method test:')
 for x,y in zip(checkl, testfig):
     print(x,y)
 
@@ -71,12 +86,14 @@ print(1 in dicl)
 print(2 in dicl)
 # dictionaryのアンパックではkeyしか取り出せない？ -> ただのアンパックではkeyのみ取り出す。
 # value取り出しはdictionaryのメソッドvalues()を使う。
+print('dictionary un-pack test:')
 akey, bkey = dicl
 print(akey)
 print(bkey)
 avalue, bvalue = dicl.values()
 print(avalue, bvalue)
 
+print('tuple test:')
 checkt = ('平成','元年')
 print(checkt)
 print(checkt[0])
@@ -100,17 +117,23 @@ print(checktl)
 engscore = 80
 print(engscore)
 print(checktl)
-
+# import文によってライブラリなどに準備されている関数やオブジェクトなどを参照できる。
+print('import module and calender test:')
 import calendar
 calendar.prmonth(2022,2)
 print(1,2,"A","漢字")
-
+# 関数定義はdef 関数名():で定義する。戻り値はreturnで返す。
+# 関数内で使わない変数は全部グローバル変数、関数内で定義、宣言したものはローカル変数となる。
+# ただしscopeはモジュール内に限定される。
+# importはモジュール内に他のモジュールの参照を可能にするための機能。
+print('define method test:')
 def countup():
     c1 = 1
     c1 += 1
     return c1
 print(countup())
 
+print('if statement test:')
 flag1 = "false"
 if flag1 == "true":
     figure=input("文字列の入力をしてください ")
@@ -120,3 +143,5 @@ elif flag1 == "false":
     print(1>2)
 else:
     print("プログラムを終了します")
+# if文,for文などは行末に:で認識させる。
+# if-elseはペアとして使ってelse ifはなくelifになる。
