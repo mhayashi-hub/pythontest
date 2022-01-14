@@ -66,6 +66,15 @@ print('%-6d %s' % (556,'AAA'))
 # 指定要素には辞書形式も使える。この場合はフォーマット指定部にラベル名を付け、要素の位置指定側を%(ラベル名)て指定する。
 print('%(x)+.2e + %(y)+.2f : %(z)08.2f' % {'x':1.1,'y':-2.2,'z':-1.1})
 
+print('bool method test:')
+print(bool('0'))
+print(bool('1'))
+print(bool(1))
+print(bool(0))
+print(bool('false'))
+print(bool('null'))
+testvalue = ''
+print(bool(testvalue))
 
 print('int and operator test:')
 print(100 *5 + 40 *10)
