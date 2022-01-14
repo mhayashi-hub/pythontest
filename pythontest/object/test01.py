@@ -2,6 +2,71 @@
 # 字下げ、スペースを厳密にチェックしてプログラムの構造判定に使うので書式チェッカのエラーに注意。
 # pythonの中で書いてる人間が勝手に名前を付けられるものは全部オブジェクトとして定義されている。
 # 予約語や処理キーワードは変更できないのでオブジェクトではない、と判断してよい。
+print('print and strings method test:')
+print('test1')
+print("test2")
+print('test2"a')
+print("test3'b'")
+# クォートの文字として"も'も使えるが、一番外側のクォート文字のみが文字列指定のためのものとして認識される。
+# 外側のクォート文字と同じ文字さえ使わなければ、内部の文字列で別のクォート文字を使える。
+# そのためにクォート文字を二種類定義して識別して使えるようにしているらしい。
+print('''test aaa
+bbb\n\tccc''')
+# トリプルクォートで指定すると改行文字をそのまま入力もできるしエスケープシーケンス付きで記述もできる。
+# docstringはdefで定義する定義関数のヘルプ情報として、help()メソッドに関数を渡すと表示できるとのこと。
+# defの行の後からトリプルクォートで囲った文字列を実際の関数実装の前に書くだけだが、できる限り書いておいた方が後で楽になる。
+def add(a,b):
+    '''
+    add(a,b)
+      aとbを加算した値を返す関数
+    :param a:int 加算対象
+    :param b:int 加算対象
+    :return:int aとbの加算結果
+    '''
+    return a + b
+help(add)
+print('raw strings print test:')
+# 生(raw)の文字列として扱いたい場合は文字列のクォートの前にrを付ける。
+# 文字列処理によってエスケープシーケンスなどに処理される\文字列を特に処理せずそのままprintで使うのに必須。
+# これをつけないと\\などのエスケープシーケンスを考慮した文字の変更が必要になる。(rを付けるとあらかじめ処理してくれる。)
+raw_str = r'C:\Users\deepinsider\Documents\work\data.txt'
+print(raw_str)
+# raw_str # この処理系では単純な評価の結果は標準出力に出てこない、のでこの行は特に機能しない。
+print('formatted strings print test:')
+# python 3.6以降で利用可能。
+# {}でくくった中に変数を指定することで、{}に指定した書式に合わせて表示してくれる。
+# :の後にformat指定で>3などで文字列の幅指定も可能。end='' なども使えるっぽい。
+x = 1
+y = 100
+result = f'{x} + {y} = {x + y}'
+# フォーマット文字列指定内で演算するとその結果を変数にいれなくともそのまま出力できる。便利そう。
+# fを前置するのではなくformat()メソッドを呼ぶことで置換箇所{}にformatメソッドで指定した内容を突っ込める。
+print(result)
+result2 = 'x + 2*y = {}'.format(x + 2 * y)
+print(result2)
+# {}を対象数分だけ指定して対応する数だけformatメソッドで指定すると、前から割り当てて表示してくれる。
+result3 = '{} * {} = {}'.format(x,y,x * y)
+print(result3)
+# {}内に0から始まる引数番号を記入してラベル付けすることも可能。
+result4 = '{0} / {1} = {2}'.format(x,y, x / y)
+print(result4)
+# {}内に適当なキーワードを名称として付けると、そのキーワード=変数として指定可能。formatメソッド内はキーワード=変数で指定できる。
+# キーワードとの明確な対応を指定するので指定順は並んでいなくてもよい。
+result5 = '{x} + {y} = {add_value}'.format(add_value = x + y,x=x,y=y)
+print(result5)
+# 置換するフィールド内の右詰めなどの書式設定も可能。
+# 例 :を付けた後で>3,end=''(最小文字幅3文字、右寄せ、endで指定した文字で文字埋め)
+print(f'{x:0=+8} + {y:<8} = {x + y:$^8}' %{x:1,y:100})
+
+# cのprintf形式に類似した出力書式指定も可能。その場合、フォーマットの''などのあとに%を指定する必要がある。
+# cの指定キーワードと少し違う扱いがある場合があるので、その詳細は使用時に確認すること。
+# 指定要素の区切りは%をつけるまでは空白、そのあとの要素わたしは(A,B)つまりtuple形式で複数要素を渡す。
+print('%5d' % 556)
+print('%-6d %s' % (556,'AAA'))
+# 指定要素には辞書形式も使える。この場合はフォーマット指定部にラベル名を付け、要素の位置指定側を%(ラベル名)て指定する。
+print('%(x)+.2e + %(y)+.2f : %(z)08.2f' % {'x':1.1,'y':-2.2,'z':-1.1})
+
+
 print('int and operator test:')
 print(100 *5 + 40 *10)
 var = 1 + 1
@@ -132,6 +197,40 @@ def countup():
     c1 += 1
     return c1
 print(countup())
+print('type method test:')
+print(type(countup))
+
+print('lambda test:')
+hello = lambda x: print('hello ' + x)
+hello('world')
+checkcomment = lambda y: print('check value: ' + y)
+checkcomment('comment')
+result = filter(lambda a: int(a)%2 == 0,'0123456789')
+for number in result:
+    print(number)
+
+print('list function with function in list test:')
+inlista = []
+for num in range(19):
+    inlista.append(num)
+print(inlista)
+inlistb = [num for num in range(15)]
+print(inlistb)
+print([num*3 for num in range(4)])
+print([num*num for num in range(13) if num%2 == 0])
+for row in [[x * y for x in range(1,10)] for y in range(1,10)]:
+    print(row)
+print('nested statement and formated printout test:')
+result = []
+for x in range(1,10):
+    z = []
+    for y in range(1,10):
+       z.append(x*y)
+    result.append(z)
+for row in result:
+    for column in row:
+        print(f'{column:>3}', end='')
+    print()
 
 print('if statement test:')
 flag1 = "false"
